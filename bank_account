@@ -1,0 +1,76 @@
+using System;
+
+public class BankAccount
+{
+    private string name;
+    private decimal balance;
+    private int pin;
+
+    // Constructor to initialize the account
+    public BankAccount(string accountName, decimal initialBalance, int accountPin)
+    {
+        name = accountName;
+        balance = initialBalance > 0 ? initialBalance : 0;
+        pin = accountPin;
+    }
+
+    // Method to deposit money
+    public void Deposit(decimal amount)
+    {
+        if (amount > 0)
+        {
+            balance += amount;
+            Console.WriteLine($"Deposit successful! New balance: {balance:C}");
+        }
+        else
+        {
+            Console.WriteLine("Invalid deposit amount. Must be greater than 0.");
+        }
+    }
+
+    // Method to withdraw money
+    public void Withdraw(decimal amount, int enteredPin)
+    {
+        if (enteredPin != pin)
+        {
+            Console.WriteLine("Invalid PIN. Access denied.");
+            return;
+        }
+
+        if (amount > 0 && amount <= balance)
+        {
+            balance -= amount;
+            Console.WriteLine($"Withdrawal successful! Remaining balance: {balance:C}");
+        }
+        else
+        {
+            Console.WriteLine("Invalid withdrawal amount or insufficient balance.");
+        }
+    }
+
+    // Method to check balance
+    public void CheckBalance(int enteredPin)
+    {
+        if (enteredPin == pin)
+        {
+            Console.WriteLine($"Account balance: {balance:C}");
+        }
+        else
+        {
+            Console.WriteLine("Invalid PIN. Access denied.");
+        }
+    }
+}
+
+// Example usage
+class Program
+{
+    static void Main()
+    {
+        BankAccount account = new BankAccount("John Doe", 1000.00m, 1234);
+
+        account.Deposit(500);
+        account.Withdraw(200, 1234);
+        account.CheckBalance(1234);
+    }
+}
