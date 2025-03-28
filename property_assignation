@@ -1,0 +1,45 @@
+using System;
+
+class Student
+{
+    private string name; // Private field
+
+    public string Name  // Public Property
+    {
+        get { return name; } // Getter: Retrieve the value
+        set 
+        { 
+            if (!string.IsNullOrWhiteSpace(value)) // Ensures name is not empty or null
+                name = value; 
+            else
+                Console.WriteLine("Invalid name. Name cannot be empty.");
+        }
+    }
+
+    // Constructor
+    public Student(string name)
+    {
+        Name = name; // Uses the property to set value
+    }
+
+    // Method to display student info
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Student Name: {Name}");
+    }
+}
+
+// Main program
+class Program
+{
+    static void Main()
+    {
+        Student student1 = new Student("Alice");
+        student1.DisplayInfo(); // Output: Student Name: Alice
+
+        student1.Name = ""; // Invalid name
+        student1.Name = "Bob"; // Changing name to Bob
+        student1.DisplayInfo(); // Output: Student Name: Bob
+    }
+}
+
