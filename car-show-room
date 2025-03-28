@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic; // Required for List<T>
+
+class Car
+{
+    public string Model { get; } // Read-only property for the car model
+
+    public Car(string model)  // Constructor to initialize car model
+    {
+        Model = model;
+    }
+}
+
+class CarShowroom
+{
+    private List<Car> cars = new List<Car>();  // List to store multiple cars
+
+    public void AddCar(string model)  // Method to add a new car
+    {
+        Car newCar = new Car(model);
+        cars.Add(newCar);
+        Console.WriteLine($"Car added: {model}");
+    }
+
+    public void ShowAllCars()  // Method to display all cars
+    {
+        if (cars.Count == 0)
+        {
+            Console.WriteLine("No cars available in the showroom.");
+            return;
+        }
+
+        Console.WriteLine("\nAvailable Car Models:");
+        foreach (Car car in cars)
+        {
+            Console.WriteLine("- " + car.Model);
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        CarShowroom showroom = new CarShowroom();  // Creating showroom object
+
+        while (true)
+        {
+            Console.WriteLine("\nCar Showroom Menu:");
+            Console.WriteLine("1. Add a Car");
+            Console.WriteLine("2. Show All Cars");
+            Console.WriteLine("3. Exit");
+            Console.Write("Choose an option: ");
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Enter Car Model: ");
+                    string model = Console.ReadLine();
+                    showroom.AddCar(model);
+                    break;
+
+                case "2":
+                    showroom.ShowAllCars();
+                    break;
+
+                case "3":
+                    Console.WriteLine("Exiting... Thank you!");
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid choice! Please enter 1, 2, or 3.");
+                    break;
+            }
+        }
+    }
+}
